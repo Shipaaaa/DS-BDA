@@ -14,7 +14,7 @@ CSV file.
 
 ### Additional Requirements
 
-Counters is used for statistics about malformed rows collection.
+Counters are used for statistics about malformed rows collection.
 
 ### Report includes
 
@@ -22,8 +22,8 @@ Counters is used for statistics about malformed rows collection.
 
 * ZIP-ed src folder with your implementation
 * Screenshot of successfully executed tests
-* Screenshot of successfully uploaded file into HDFS
-* Screenshots of successfully executed job and result
+* Screenshot of a successfully uploaded file into HDFS
+* Screenshots of a successfully executed job and result
 * Quick build and deploy manual (commands, OS requirements etc)
 
 #### Optional

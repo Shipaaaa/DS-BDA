@@ -4,6 +4,7 @@ set -e
 # This script generates a random set of words.
 # usage: ./random-word-generator.sh -c=10 -o="./inputFiles/input_files.txt"
 
+# Parsing input params
 for i in "$@"
 do
 case $i in
@@ -32,4 +33,20 @@ fi
 echo "COUNT=$COUNT"
 echo "OUTPUT_FILE=$OUTPUT_FILE"
 
-cat "/usr/share/dict/words"|sort -R|head -n "$COUNT"|xargs > "$OUTPUT_FILE"
+# Getting words from standard dictionary
+words=( $(cat "/usr/share/dict/words"|sort -R|head -n "$COUNT"|xargs) )
+
+word_with_error=0
+
+# Translitting random words to cyrillic
+for (( i=0; i< ${#words[@]}; i++ ));
+do
+  if (($(((RANDOM % 2) == 1)))) ;then
+    words[$i]=$(./translit.sh "${words[$i]}")
+    ((word_with_error++))
+  fi
+done
+
+printf '%s\n' "${words[@]}" > "$OUTPUT_FILE"
+
+echo "Count of cyrillic words: $word_with_error"
