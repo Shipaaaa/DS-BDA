@@ -40,8 +40,11 @@ Counters are used for statistics about malformed rows collection.
 
 4) Script for input file generation or extraction to HDFS must be provided (10 points)
 
-5) Working MapReduce application that corresponds business logic, input/output 
-format and additional Requirements that has been started on Hadoop cluster 
+5) Working MapReduce application that corresponds business logic, input/output
+format and additional Requirements that has been started on Hadoop cluster
 (not singleton mode) (30 points)
 
 6) The relevant report was prepared (20 points)
+
+You also can see [a report](./docs/Report.md) and
+[Quick build and deploy manual](./docs/Guide.md)
