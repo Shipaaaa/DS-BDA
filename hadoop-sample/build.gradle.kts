@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClassName = "ru.shipa.hadoop.sample.AppKt"
+    mainClassName = "ru.shipa.hadoop.sample.App"
 }
 
 repositories {
@@ -15,6 +15,14 @@ repositories {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.jar {
+    manifest {
+        attributes("Main-Class" to "ru.shipa.hadoop.sample.App")
+    }
+
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
 
 tasks.test {
