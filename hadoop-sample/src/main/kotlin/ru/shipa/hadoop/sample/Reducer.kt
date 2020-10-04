@@ -22,12 +22,18 @@ import kotlin.jvm.Throws
  */
 class Reducer : Reducer<IntWritable, Text, IntWritable, Text>() {
 
+    companion object {
+        private val reduceValue = Text()
+    }
+
     @Throws(IOException::class, InterruptedException::class)
     override fun reduce(wordLength: IntWritable, words: Iterable<Text>, context: Context) {
         val foundedWords = LinkedList<String>()
 
         for (word in words) foundedWords.add(word.toString())
 
-        context.write(wordLength, Text(foundedWords.joinToString(separator = " ")))
+        reduceValue.set(foundedWords.joinToString(separator = " "))
+
+        context.write(wordLength, reduceValue)
     }
 }
