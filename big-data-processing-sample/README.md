@@ -6,14 +6,14 @@
 
 Program which calculate linux syslog priority count by hours. Is given by:
 
-* 7 – debug;
-* 6 – info;
-* 5 – notice;
-* 4 - warning, warn;
-* 3 - err, error;
-* 2 - crit;
-* 1 - alert;
-* 0 - emerg, panic.  
+* 0 - EMERGENCY;  
+* 1 - ALERT;
+* 2 - CRITICAL;
+* 3 - ERROR;
+* 4 - WARNING;
+* 5 – NOTICE;
+* 6 – INFORMATIONAL;
+* 7 – DEBUG.
 
 #### Ingest technology
 
