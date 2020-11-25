@@ -15,8 +15,9 @@ import org.slf4j.LoggerFactory
 class KafkaLogsProducer(private val data: String) {
 
     companion object {
+        private val BOOTSTRAP_SERVERS_IP = System.getenv("KAFKA_BOOTSTRAP_SERVERS_IP") ?: "127.0.0.1:9092"
+
         private const val TOPIC_NAME = "SYSLOG_TOPIC"
-        private const val BOOTSTRAP_SERVERS_IP = "0.0.0.0:32778"
     }
 
     private val logger = LoggerFactory.getLogger(this::class.java)
