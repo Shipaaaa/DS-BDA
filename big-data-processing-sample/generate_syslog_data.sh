@@ -7,10 +7,8 @@ if [ -z "$LOGS_LINE_COUNT" ]; then
   exit 1
 fi
 
-month=$(date +%b)
-day=$(date +%d)
 host="$(hostname)"
-process="BARD SIMPSON"
+process="BARD_SIMPSON"
 
 arr[0]="FRIDAYS ARE NOT «PANTS OPTIONAL»"
 arr[1]="I DID NOT WIN THE NOBEL FART PRIZE"
@@ -34,9 +32,7 @@ rand=$(($((RANDOM % 10)) % ${#arr[@]}))
 message="${arr[$rand]}"
 
 function generate_logs_line() {
-  hour=$((RANDOM % 24))
-  minute=$((RANDOM % 60))
-  second=$((RANDOM % 60))
+  dateTime=$(date -d "$((RANDOM % 1 + 2020))-$((RANDOM % 12 + 1))-$((RANDOM % 28 + 1)) $((RANDOM % 23 + 1)):$((RANDOM % 59 + 1)):$((RANDOM % 59 + 1))" '+%Y-%m-%dT%H:%M:%S')
 
   priority=
   case $((RANDOM % 8)) in
@@ -59,9 +55,9 @@ function generate_logs_line() {
   fi
 
   if [ $priority ]; then
-    echo "$month" "$day" $hour:$minute:$second "$host" "$process": \<$priority\> "$message"
+    echo "$dateTime" "$host" "$process": \<$priority\> "$message"
   else
-    echo "$month" "$day" $hour:$minute:$second "$host" "$process": "$message"
+    echo "$dateTime" "$host" "$process": "$message"
   fi
 }
 

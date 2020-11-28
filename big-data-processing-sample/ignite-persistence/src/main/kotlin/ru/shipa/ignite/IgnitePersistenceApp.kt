@@ -1,4 +1,4 @@
-package ru.shipa.ignite.persistence
+package ru.shipa.ignite
 
 /**
  * Ignite Persistence application entry point.

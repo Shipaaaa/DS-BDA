@@ -3,16 +3,17 @@ package ru.shipa.kafka.producer
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.clients.producer.ProducerRecord
-import org.apache.kafka.common.serialization.ByteArraySerializer
 import org.apache.kafka.common.serialization.StringSerializer
 import org.slf4j.LoggerFactory
+import ru.shipa.core.entity.LogEntity
+import ru.shipa.core.serializers.LogEntitySerializer
 
 /**
  * Kafka producer. Sends data to Kafka Consumer.
  *
  * @author v.shipugin
  */
-class KafkaLogsProducer(private val data: String) {
+class KafkaLogsProducer(private val data: List<String>) {
 
     companion object {
         private val BOOTSTRAP_SERVERS_IP = System.getenv("KAFKA_BOOTSTRAP_SERVERS_IP") ?: "127.0.0.1:9092"
@@ -26,20 +27,21 @@ class KafkaLogsProducer(private val data: String) {
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to BOOTSTRAP_SERVERS_IP,
 
         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java.name,
-        ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to ByteArraySerializer::class.java.name,
+        ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to LogEntitySerializer::class.java.name,
     )
 
-    private val producer = KafkaProducer<String, ByteArray>(config)
+    private val producer = KafkaProducer<String, LogEntity>(config)
 
-    fun init() {
-        val message = data.toByteArray()
-
-        val record = ProducerRecord<String, ByteArray>(TOPIC_NAME, message)
-
-        producer.send(record) { metadata, exception ->
-            metadata?.let { logger.debug("Сообщение отправлено в topic: ${metadata.topic()}") }
-            exception?.let { logger.error(exception.message, exception) }
-        }
+    fun sendData() {
+        data
+            .map { LogEntity.fromLine(it) }
+            .map { ProducerRecord<String, LogEntity>(TOPIC_NAME, it) }
+            .forEach { record ->
+                producer.send(record) { metadata, exception ->
+                    metadata?.let { logger.debug("Message has been sent to topic: ${metadata.topic()}") }
+                    exception?.let { logger.error(exception.message, exception) }
+                }
+            }
     }
 
     fun stop() {

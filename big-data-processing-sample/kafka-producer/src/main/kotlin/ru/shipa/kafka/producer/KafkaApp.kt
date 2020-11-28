@@ -1,5 +1,6 @@
 package ru.shipa.kafka.producer
 
+import ru.shipa.kafka.producer.KafkaApp.main
 import java.io.File
 
 
@@ -14,18 +15,19 @@ object KafkaApp {
     @JvmStatic
     fun main(args: Array<String>) {
         val sysLogsPath = args[0]
+        val data = readFile(sysLogsPath)
 
-        KafkaLogsProducer(readFile(sysLogsPath)).apply {
-            init()
+        KafkaLogsProducer(data).apply {
+            sendData()
             stop()
         }
     }
 
-    private fun readFile(sysLogsPath: String): String {
+    private fun readFile(sysLogsPath: String): List<String> {
         println("Reading file...")
 
         return File(sysLogsPath)
-            .readText(Charsets.UTF_8)
-            .also { sysLogs -> println("File: ${sysLogs.take(50)} ... ${sysLogs.takeLast(50)}") }
+            .useLines { it.toList() }
+            .also { sysLogs -> println("File:\n${sysLogs.firstOrNull()}\n...\n${sysLogs.lastOrNull()}\n") }
     }
 }
