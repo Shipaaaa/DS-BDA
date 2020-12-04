@@ -11,7 +11,7 @@ import ru.shipa.core.entity.LogEntity
  *
  * @author v.shipugin
  */
-class LogEntitySerializer : Serializer<LogEntity?> {
+class LogEntitySerializer : Serializer<LogEntity> {
 
     /**
      * Serializing data.

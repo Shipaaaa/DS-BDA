@@ -36,12 +36,14 @@ repositories {
 }
 
 dependencies {
+    val igniteVersion = "2.9.0"
     val junit5Version = "5.0.2"
 
     implementation(project(":core"))
 
-    implementation("org.apache.ignite:ignite-core:2.9.0")
-    implementation("org.apache.ignite:ignite-spring:2.9.0")
+    implementation("org.apache.ignite:ignite-core:$igniteVersion")
+    implementation("org.apache.ignite:ignite-kafka:$igniteVersion")
+    implementation("org.apache.ignite:ignite-log4j2:$igniteVersion")
 
     implementation("org.apache.kafka:kafka-clients:2.6.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.3")

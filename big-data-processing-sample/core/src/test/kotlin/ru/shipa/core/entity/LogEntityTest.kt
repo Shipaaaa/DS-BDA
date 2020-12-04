@@ -2,7 +2,6 @@ package ru.shipa.core.entity
 
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import ru.shipa.core.entity.LogEntity
 import kotlin.test.assertFails
 
 class LogEntityTest {

@@ -27,6 +27,5 @@ class LocalDateAsStringSerializerTest {
 
         val result = Json.decodeFromString<LogEntity>(bytes.toString(Charsets.UTF_8))
         println(result)
-
     }
 }
