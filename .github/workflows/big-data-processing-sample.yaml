@@ -40,8 +40,14 @@ jobs:
         run: ./gradlew build
       - uses: actions/upload-artifact@v2
         with:
-          name: Package
+          name: ignite-persistence
           path: ./big-data-processing-sample/ignite-persistence/build/libs/ignite-persistence-1.0-SNAPSHOT.jar
+      - uses: actions/upload-artifact@v2
+        with:
+          name: kafka-producer
           path: ./big-data-processing-sample/kafka-producer/build/libs/kafka-producer-1.0-SNAPSHOT.jar
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ignite-compute
           path: ./big-data-processing-sample/ignite-compute/build/libs/ignite-compute-1.0-SNAPSHOT.jar
           
