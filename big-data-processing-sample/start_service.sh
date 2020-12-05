@@ -18,7 +18,7 @@ echo "Building project..."
 printf "\n\n\n"
 
 echo "Generating test data..."
-#./generate_syslog_data.sh $line_count > $logs_file_path
+./generate_syslog_data.sh $line_count > $logs_file_path
 
 echo "Set ENV"
 export KAFKA_BOOTSTRAP_SERVERS_IP="127.0.0.1:9092"

@@ -7,7 +7,7 @@ if [ -z "$LOGS_LINE_COUNT" ]; then
   exit 1
 fi
 
-host="$(hostname)"
+host="v.shipugin"
 process="BARD_SIMPSON"
 
 arr[0]="FRIDAYS ARE NOT «PANTS OPTIONAL»"
@@ -32,7 +32,7 @@ rand=$(($((RANDOM % 10)) % ${#arr[@]}))
 message="${arr[$rand]}"
 
 function generate_logs_line() {
-  dateTime=$(date -d "$((RANDOM % 1 + 2020))-$((RANDOM % 12 + 1))-$((RANDOM % 28 + 1)) $((RANDOM % 23 + 1)):$((RANDOM % 59 + 1)):$((RANDOM % 59 + 1))" '+%Y-%m-%dT%H:%M:%S')
+  dateTime=$(gdate -d "$((RANDOM % 1 + 2020))-$((RANDOM % 12 + 1))-$((RANDOM % 28 + 1)) $((RANDOM % 23 + 1)):$((RANDOM % 59 + 1)):$((RANDOM % 59 + 1))" '+%Y-%m-%dT%H:%M:%S')
 
   priority=
   case $((RANDOM % 8)) in
