@@ -1,0 +1,53 @@
+name: Test and build big-data-processing-sample
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Grant execute permission for gradlew
+        working-directory: ./big-data-processing-sample
+        run: chmod +x ./gradlew
+      - name: test
+        working-directory: ./big-data-processing-sample
+        run: ./gradlew test
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Grant execute permission for gradlew
+        working-directory: ./big-data-processing-sample
+        run: chmod +x ./gradlew
+      - name: Build with Gradle
+        working-directory: ./big-data-processing-sample
+        run: ./gradlew build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ignite-persistence
+          path: ./big-data-processing-sample/ignite-persistence/build/libs/ignite-persistence-1.0-SNAPSHOT.jar
+      - uses: actions/upload-artifact@v2
+        with:
+          name: kafka-producer
+          path: ./big-data-processing-sample/kafka-producer/build/libs/kafka-producer-1.0-SNAPSHOT.jar
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ignite-compute
+          path: ./big-data-processing-sample/ignite-compute/build/libs/ignite-compute-1.0-SNAPSHOT.jar
+          
