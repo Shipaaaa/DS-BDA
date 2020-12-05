@@ -47,6 +47,9 @@ class KafkaToIgniteStreamer(private val ignite: Ignite) {
     private lateinit var igniteDataStreamer: IgniteDataStreamer<String, LogEntity>
     private lateinit var kafkaStreamer: KafkaStreamer<String, LogEntity>
 
+    /**
+     * Stream initializing
+     */
     fun init() {
         igniteDataStreamer = ignite.dataStreamer<String, LogEntity>(DATA_CACHE_NAME).apply {
             allowOverwrite(true)
@@ -63,20 +66,23 @@ class KafkaToIgniteStreamer(private val ignite: Ignite) {
             setSingleTupleExtractor { msg ->
                 val key = msg.key() as String
                 val value = msg.value() as LogEntity
-                logger.debug("record\nkey: $key\nvalue: $value\n")
+                logger.debug("record key: $key value: $value\n")
 
                 IgniteBiTuple(key, value)
             }
         }
     }
 
+    /**
+     * Start getting logs
+     */
     fun start() {
         kafkaStreamer.start()
-
-        // TODO periodic flush
-        igniteDataStreamer.flush()
     }
 
+    /**
+     * Stop getting logs
+     */
     fun stop() {
         kafkaStreamer.stop()
         igniteDataStreamer.close()

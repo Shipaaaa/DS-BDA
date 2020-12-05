@@ -5,8 +5,9 @@ import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringSerializer
 import ru.shipa.core.entity.LogEntity
 import ru.shipa.core.serializers.LogEntitySerializer
-import ru.shipa.kafka.producer.KafkaApp.main
+import ru.shipa.kafka.producer.KafkaProducerApp.main
 import java.io.File
+import java.util.*
 
 
 /**
@@ -15,7 +16,7 @@ import java.io.File
  * @author v.shipugin
  * @see main
  */
-object KafkaApp {
+object KafkaProducerApp {
 
     private val BOOTSTRAP_SERVERS_IP = System.getenv("KAFKA_BOOTSTRAP_SERVERS_IP") ?: "127.0.0.1:9092"
 
@@ -32,12 +33,19 @@ object KafkaApp {
         val data = readFile(sysLogsPath)
         val producer = KafkaProducer<String, LogEntity>(config)
 
-        with(KafkaLogsProducer(producer)) {
+        with(KafkaLogsProducer(producer, keyGenerator = { UUID.randomUUID().toString() })) {
             sendData(data)
             stop()
         }
     }
 
+    /**
+     * Reading logs from file
+     *
+     * @param sysLogsPath path to file with logs
+     *
+     * @return list of log lines
+     */
     private fun readFile(sysLogsPath: String): List<String> {
         println("Reading file...")
 

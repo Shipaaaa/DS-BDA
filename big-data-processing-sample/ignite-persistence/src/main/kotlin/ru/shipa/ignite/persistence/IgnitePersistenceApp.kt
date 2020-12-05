@@ -22,9 +22,8 @@ object IgnitePersistenceApp {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        /**
-         * Apache Ignite configuration
-         */
+
+        // Apache Ignite configuration
         val igniteCfg = IgniteConfiguration().apply {
             dataStorageConfiguration = DataStorageConfiguration().apply {
                 isPeerClassLoadingEnabled = true
@@ -32,17 +31,13 @@ object IgnitePersistenceApp {
             }
         }
 
-        /**
-         * Configuring the cache of received logs
-         */
+        // Configuring the cache of received logs
         val logsCacheCfg = CacheConfiguration<String, LogEntity>(DATA_CACHE_NAME).apply {
             cacheMode = CacheMode.REPLICATED
             atomicityMode = CacheAtomicityMode.ATOMIC
         }
 
-        /**
-         * Launching Apache Ignite
-         */
+        // Launching Apache Ignite
         val ignite = Ignition.start(igniteCfg).apply {
             cluster().state(ClusterState.ACTIVE)
             getOrCreateCache(logsCacheCfg)

@@ -9,7 +9,7 @@ group = "ru.shipa"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClassName = "ru.shipa.kafka.producer.KafkaApp"
+    mainClassName = "ru.shipa.kafka.producer.KafkaProducerApp"
 }
 
 tasks.withType<KotlinCompile> {
@@ -18,7 +18,7 @@ tasks.withType<KotlinCompile> {
 
 tasks.jar {
     manifest {
-        attributes("Main-Class" to "ru.shipa.kafka.producer.KafkaApp")
+        attributes("Main-Class" to "ru.shipa.kafka.producer.KafkaProducerApp")
     }
 
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })

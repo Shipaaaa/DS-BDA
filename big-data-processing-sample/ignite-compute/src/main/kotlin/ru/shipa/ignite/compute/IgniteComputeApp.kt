@@ -1,12 +1,9 @@
 package ru.shipa.ignite.compute
 
 import org.apache.ignite.Ignition
-import org.apache.ignite.cache.CacheAtomicityMode
-import org.apache.ignite.cache.CacheMode
-import org.apache.ignite.cluster.ClusterState
-import org.apache.ignite.configuration.CacheConfiguration
 import org.apache.ignite.configuration.IgniteConfiguration
-import ru.shipa.core.entity.LogEntity
+import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi
+import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder
 import ru.shipa.ignite.compute.IgniteComputeApp.main
 
 /**
@@ -27,6 +24,11 @@ object IgniteComputeApp {
         val igniteCfg = IgniteConfiguration().apply {
             isPeerClassLoadingEnabled = true
             isClientMode = true
+
+            val ipFinder = TcpDiscoveryMulticastIpFinder().apply {
+                setAddresses(listOf("127.0.0.1:47500..47509"))
+            }
+            discoverySpi = TcpDiscoverySpi().setIpFinder(ipFinder)
         }
 
         /**
@@ -34,13 +36,11 @@ object IgniteComputeApp {
          */
         val ignite = Ignition.start(igniteCfg)
 
-        val logs = ignite.getOrCreateCache<String, LogEntity>(DATA_CACHE_NAME)
-            .asIterable()
-            .toList()
-            .map { it.value }
-
         val result = ignite.compute().execute(CountLogsMapReduceTask::class.java, DATA_CACHE_NAME)
 
-        println("result: $result")
+        println("result:")
+        result.forEach { println(it) }
+
+        ignite.close()
     }
 }
