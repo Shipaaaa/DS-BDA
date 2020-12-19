@@ -23,9 +23,8 @@ class TwitterStreamListener(private val eventCounterService: EventCounterService
      * @param tweet tweet information
      */
     override fun onTweet(tweet: Tweet) {
-        log.info("onTweet ${tweet.id} ${tweet.text}")
-        eventCounterService.incrementTweetsCount()
-        if (log.isWarnEnabled) log.warn("tweets count incremented")
+        eventCounterService.incrementEventsCount()
+        log.debug("tweets count incremented")
     }
 
     /**

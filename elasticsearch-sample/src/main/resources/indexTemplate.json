@@ -24,6 +24,10 @@
       },
       "level": {
         "type": "keyword"
+      },
+      "@timestamp": {
+        "type": "date",
+        "format": "YYYY-MM-DD'T'HH:mm:ssZ"
       }
     }
   }

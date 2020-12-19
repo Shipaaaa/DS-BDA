@@ -4,25 +4,26 @@ import org.springframework.stereotype.Service
 import java.util.concurrent.atomic.AtomicLong
 
 /**
- * Service for counting tweets
+ * Service for counting events
  *
  * @author v.shipugin
  */
 @Service
 class EventCounterService {
 
-    private val tweetsCount = AtomicLong(0)
+    private val eventCount = AtomicLong(0)
 
     /**
-     * Increment tweets count
+     * Increment events count
      */
-    fun incrementTweetsCount() {
-        tweetsCount.incrementAndGet()
+    fun incrementEventsCount() {
+        eventCount.incrementAndGet()
     }
 
     /**
-     * Return and reset tweets count
-     * @return tweets count
+     * Return and reset events count
+     *
+     * @return events count
      */
-    fun getAndResetTweetsCount() = tweetsCount.get().also { tweetsCount.set(0) }
+    fun getAndResetEventsCount() = eventCount.get().also { eventCount.set(0) }
 }

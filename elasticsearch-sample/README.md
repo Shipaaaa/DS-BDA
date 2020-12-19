@@ -31,3 +31,6 @@ Grafana
 * Screenshots of successfully executed job and result (logs, dependence graph)
 * Quick build and deploy manual (commands, OS requirements etc)
 * System components communication diagram (UML or COMET)
+
+You also can see [a report](docs/Report.md) and
+[Quick build and deploy manual](docs/Guide.md)

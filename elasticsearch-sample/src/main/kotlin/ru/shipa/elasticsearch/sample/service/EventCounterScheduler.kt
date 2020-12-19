@@ -26,7 +26,7 @@ class EventCounterScheduler(private val eventCounterService: EventCounterService
      */
     @Scheduled(fixedDelayString = "\${log.count.period}")
     fun logTweetsCount() {
-        val count = eventCounterService.getAndResetTweetsCount()
+        val count = eventCounterService.getAndResetEventsCount()
 
         logger.info("Event Name: $TWEETS_COUNT, count : $count")
     }

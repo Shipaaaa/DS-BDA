@@ -26,12 +26,16 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
+}
+
 dependencies {
     implementation("org.springframework.social:spring-social-twitter:1.1.2.RELEASE")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
-    implementation("org.springframework.boot:spring-boot-starter") {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
-    }
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation("com.fasterxml.jackson.module:jackson-module-afterburner:2.9.8")
     implementation("org.appenders.log4j:log4j2-elasticsearch-hc:1.4.4")
     implementation("io.netty:netty-buffer:4.1.32.Final")
