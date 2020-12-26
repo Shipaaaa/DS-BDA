@@ -10,9 +10,4 @@ echo "Started services:"
 docker ps --format "{{ .Names }}"
 printf "\n"
 
-echo "Building project..."
-./gradlew build
-printf "\n\n\n"
-
-printf "\nRunning Twitter Streaming API..."
-java -jar ./build/libs/elasticsearch-sample-1.0-SNAPSHOT.jar
+start http://localhost:3000

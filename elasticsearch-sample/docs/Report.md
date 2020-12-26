@@ -21,3 +21,5 @@
 ### Test run result
 
 ![tests](screenshots/tests.png)
+
+![ci](screenshots/ci.png)

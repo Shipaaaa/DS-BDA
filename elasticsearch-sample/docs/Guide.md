@@ -7,6 +7,11 @@
 * jdk 1.8 or later
 * docker
 
+## Login to grafana
+
+- login: admin
+- password: admin
+
 ## Build
 
 ### Clone project
@@ -23,22 +28,16 @@ git clone https://github.com/Shipaaaa/DS-BDA.git
 
 ### Or start the service manually
 
-#### Build project
-
-```shell script
-./gradlew build
-```
-
 #### Start elasticsearch and grafana in docker-compose
 
 ```shell script
 docker-compose -f es-grafana-docker/docker-compose.yml up
 ```
 
-#### Run Twitter Streaming API
+#### Run grafana web ui
 
 ```shell script
-java -jar ./build/libs/elasticsearch-sample-1.0-SNAPSHOT.jar
+start http://localhost:3000
 ```
 
 #### Shutdown elasticsearch and grafana in docker-compose after your work

@@ -22,7 +22,7 @@ Grafana
 
 ### Components Diagram
 
-// TODO
+![elasticsearch-grafana-diagram](docs/screenshots/elasticsearch-grafana-diagram.png)
 
 ### Report includes
 
