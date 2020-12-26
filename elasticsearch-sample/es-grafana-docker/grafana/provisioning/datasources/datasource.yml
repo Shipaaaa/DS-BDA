@@ -1,0 +1,18 @@
+
+apiVersion: 1
+
+deleteDatasources:
+  - name: elasticsearch
+    orgId: 1
+
+datasources:
+  - name: elasticsearch
+    type: elasticsearch
+    access: "proxy"
+    basicAuth: false
+    database: "log4j2-elasticsearch-hc-test*"
+    isDefault: true
+    url: "http://elasticsearch:9200"
+    jsonData:
+      timeField: "timeMillis"
+      esVersion: 70
